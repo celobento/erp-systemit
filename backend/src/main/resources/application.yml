@@ -2,7 +2,7 @@ spring:
   application:
     name= ERP System-iT
   datasource:
-    url: jdbc:postgresql://localhost:5432/demo
+    url: jdbc:postgresql://localhost:5432/n3
     username: postgres
     password: 123456
   jpa:
