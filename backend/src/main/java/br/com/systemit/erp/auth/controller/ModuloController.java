@@ -1,7 +1,7 @@
 package br.com.systemit.erp.auth.controller;
 
-import br.com.systemit.erp.auth.model.Perfil;
-import br.com.systemit.erp.auth.repository.PerfilRepository;
+import br.com.systemit.erp.auth.model.Modulo;
+import br.com.systemit.erp.auth.service.ModuloService;
 import br.com.systemit.erp.auth.service.PerfilService;
 import br.com.systemit.erp.util.JsonUtil;
 import org.springframework.http.HttpStatus;
@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("perfis")
-public class PerfilController {
+@RequestMapping("modulos")
+public class ModuloController {
 
-    private PerfilService  service;
+    private ModuloService service;
 
-    public PerfilController(PerfilService service) {
+    public ModuloController(ModuloService service) {
         this.service = service;
     }
 
@@ -26,13 +26,6 @@ public class PerfilController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(JsonUtil.objectToJson(service.buscarPorId(id)));
-    }
-
-    @GetMapping("modulo/{id}")
-    public ResponseEntity<String> buscaPorModulo(@PathVariable("id") Integer id) {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(JsonUtil.objectToJson(service.buscarPorModulo(id)));
     }
 
     @GetMapping()

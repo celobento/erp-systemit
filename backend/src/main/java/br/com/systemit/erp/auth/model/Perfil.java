@@ -10,17 +10,34 @@ import lombok.Setter;
 @Table(name = "perfil", schema = "public")
 @Getter
 @Setter
+@NamedQueries({
+    @NamedQuery(    name = Perfil.FIND_ALL,
+                    query = " SELECT o FROM Perfil o " +
+                            " order by o.id"),
+    @NamedQuery(    name = Perfil.FIND_BY_MODULO,
+                    query = " SELECT o FROM Perfil o " +
+                            " where o.modulo.id = :idModulo  " +
+                            " order by o.nome"
+        )
+})
 public class Perfil {
+
+    public static final String FIND_ALL = "Perfil.findAllOrdered";
+    public static final String FIND_BY_MODULO = "Perfil.findByModulo";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
+    @Column(name = "nome")
     private String nome;
 
+    @Column(name = "discriminacao")
     @Size(max=500)
     private String discriminacao;
 
+    @Column(name = "role")
     private String role;
 
 //    @OneToMany(mappedBy = "perfil", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

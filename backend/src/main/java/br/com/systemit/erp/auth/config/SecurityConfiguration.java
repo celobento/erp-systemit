@@ -33,9 +33,9 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers("/auth").permitAll();
                     authorize.requestMatchers(HttpMethod.GET,"/usuarios/**").hasAnyRole("adm");
-                    authorize.requestMatchers(HttpMethod.GET,"/perfis/**").hasAnyRole("ADMIN");
-                    authorize.requestMatchers(HttpMethod.POST,"/perfis/**").hasRole("ADMIN");
-                    authorize.anyRequest().authenticated();
+                    //authorize.requestMatchers(HttpMethod.GET,"/perfis/**").hasAnyRole("ADMIN");
+                    //authorize.requestMatchers(HttpMethod.POST,"/perfis/**").hasRole("ADMIN");
+                    authorize.anyRequest().permitAll();
                 })
                 .build();
     }
