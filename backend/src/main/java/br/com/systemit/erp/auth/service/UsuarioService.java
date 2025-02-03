@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsuarioService {
 
-    private final UsuarioRepository repository;
-    private final PasswordEncoder encoder;
+    private UsuarioRepository repository;
+    private PasswordEncoder encoder;
 
     public UsuarioService(UsuarioRepository repository, PasswordEncoder encoder) {
         this.repository = repository;
