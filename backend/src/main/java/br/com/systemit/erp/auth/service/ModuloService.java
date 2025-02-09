@@ -6,6 +6,7 @@ import br.com.systemit.erp.auth.repository.ModuloRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ModuloService {
@@ -16,8 +17,8 @@ public class ModuloService {
         this.repository = repository;
     }
 
-    public Modulo buscarPorId(Integer id){
-        return repository.findById(id).orElse(null);
+    public Optional<Modulo> buscarPorId(Integer id){
+        return repository.findById(id);
     }
 
     public List<Modulo> findAll() {

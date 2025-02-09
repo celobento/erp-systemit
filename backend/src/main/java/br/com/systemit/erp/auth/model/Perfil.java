@@ -2,14 +2,13 @@ package br.com.systemit.erp.auth.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 @Entity
 @Table(name = "perfil", schema = "public")
-@Getter
-@Setter
+@Data
 @NamedQueries({
     @NamedQuery(    name = Perfil.FIND_ALL,
                     query = " SELECT o FROM Perfil o " +
@@ -20,6 +19,7 @@ import lombok.Setter;
                             " order by o.nome"
         )
 })
+@EntityListeners(AuditingEntityListener.class)
 public class Perfil {
 
     public static final String FIND_ALL = "Perfil.findAllOrdered";
@@ -47,43 +47,12 @@ public class Perfil {
     @JoinColumn(name = "idmodulo", referencedColumnName = "id")
     private Modulo modulo;
 
-    public Integer getId() {
-        return id;
-    }
+//    @CreatedDate
+//    @Column(name = "data_cadatro")
+//    private LocalDateTime dataCadastro;
+//
+//    @LastModifiedDate
+//    @Column(name = "data_atualizacao")
+//    private LocalDateTime dataAtualizacao;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public @Size(max = 500) String getDiscriminacao() {
-        return discriminacao;
-    }
-
-    public void setDiscriminacao(@Size(max = 500) String discriminacao) {
-        this.discriminacao = discriminacao;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Modulo getModulo() {
-        return modulo;
-    }
-
-    public void setModulo(Modulo modulo) {
-        this.modulo = modulo;
-    }
 }

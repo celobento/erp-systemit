@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PerfilRepository extends JpaRepository<Perfil, Integer> {
 
@@ -15,4 +16,13 @@ public interface PerfilRepository extends JpaRepository<Perfil, Integer> {
     @Query(name = Perfil.FIND_BY_MODULO)
     List<Perfil> findByModulo(@Param("idModulo") Integer idModulo);
 
+    List<Perfil> findByNomeContainingIgnoreCase(String nome);
+
+    List<Perfil> findByRoleContainingIgnoreCase(String role);
+
+    List<Perfil> findByNomeAndRoleIgnoreCase(String nome, String role);
+
+    Optional<Perfil> findByNomeAndRole(String nome, String role);
+
+    boolean existsByNomeAndRole(String nome, String role);
 }

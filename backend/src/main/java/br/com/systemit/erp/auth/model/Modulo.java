@@ -1,6 +1,7 @@
 package br.com.systemit.erp.auth.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,8 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "modulo", schema = "public")
-@Getter
-@Setter
+@Data
 public class Modulo {
 
     @Id
