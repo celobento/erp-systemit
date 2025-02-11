@@ -19,7 +19,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
                             " order by o.nome"
         )
 })
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 public class Perfil {
 
     public static final String FIND_ALL = "Perfil.findAllOrdered";

@@ -1,12 +1,10 @@
 package br.com.systemit.erp.auth.dto;
 
-import br.com.systemit.erp.auth.model.Modulo;
-import br.com.systemit.erp.auth.model.Perfil;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public record PerfilDTO(
+public record PesquisaPerfilDTO(
 
         @NotBlank(message = "Campo obrigatório")
         @Size(min = 2, max = 50, message = "campo fora do tamanho padrão")
@@ -21,6 +19,6 @@ public record PerfilDTO(
         String role,
 
         @NotNull
-        Integer modulo) {
+        ModuloDTO modulo) {
 
 }
