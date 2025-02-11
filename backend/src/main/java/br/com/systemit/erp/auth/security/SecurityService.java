@@ -19,10 +19,13 @@ public class SecurityService {
 
     public Usuario obterUsuarioLogado() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetail = (UserDetails) auth.getPrincipal();
-        String login = userDetail.getUsername();
-        return usuarioService.buscaByLogin(login);
-
+//        UserDetails userDetail = (UserDetails) auth.getPrincipal();
+//        String login = userDetail.getUsername();
+//        return usuarioService.buscaByLogin(login);
+        if (auth instanceof CustomAuthentication customAuth) {
+            return customAuth.getUsuario();
+        }
+        return null;
     }
 
 

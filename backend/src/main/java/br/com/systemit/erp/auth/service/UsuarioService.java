@@ -27,5 +27,9 @@ public class UsuarioService {
         return repository.findByLogin(login);
     }
 
+    public Usuario buscaByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+
 
 }

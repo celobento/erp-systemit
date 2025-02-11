@@ -1,6 +1,7 @@
 package br.com.systemit.erp.auth.config;
 
 import br.com.systemit.erp.auth.security.CustomUserDetailsService;
+import br.com.systemit.erp.auth.security.LoginSocialSucessHandler;
 import br.com.systemit.erp.auth.service.UsuarioAutenticacaoService;
 import br.com.systemit.erp.auth.service.UsuarioService;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,10 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)  throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            LoginSocialSucessHandler sucessHandler
+    )  throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(Customizer.withDefaults())
@@ -41,7 +45,11 @@ public class SecurityConfiguration {
                     //authorize.requestMatchers(HttpMethod.POST,"/perfis/**").hasRole("ADMIN");
                     authorize.anyRequest().permitAll();
                 })
-                .oauth2Login(Customizer.withDefaults())
+                .oauth2Login(
+                        //Customizer.withDefaults()
+                        oauth2 -> {
+                            oauth2.successHandler(sucessHandler);
+                        })
                 .build();
     }
 

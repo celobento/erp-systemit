@@ -19,6 +19,6 @@ public class LoginViewController {
     @GetMapping("/")
     @ResponseBody
     public String paginaHome(Authentication authentication) {
-        return "Olá" + authentication.getName() ;
+        return "Olá - " + authentication.getName() ;
     }
 }
