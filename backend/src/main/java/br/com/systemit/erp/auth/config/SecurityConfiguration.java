@@ -40,6 +40,7 @@ public class SecurityConfiguration {
                     //authorize.requestMatchers(HttpMethod.POST,"/perfis/**").hasRole("ADMIN");
                     authorize.anyRequest().permitAll();
                 })
+                .oauth2Login(Customizer.withDefaults())
                 .build();
     }
 
