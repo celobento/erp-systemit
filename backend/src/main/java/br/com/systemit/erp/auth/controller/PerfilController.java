@@ -11,6 +11,10 @@ import br.com.systemit.erp.auth.service.ModuloService;
 import br.com.systemit.erp.auth.service.PerfilService;
 import br.com.systemit.erp.exceptions.RegistroDuplicadoException;
 import br.com.systemit.erp.util.JsonUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,6 +30,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("perfis")
 @RequiredArgsConstructor
+@Tag(name = "Perfil")
 public class PerfilController implements GenericController {
 
     private final PerfilService service;
@@ -36,6 +41,11 @@ public class PerfilController implements GenericController {
 
     //@RequestMapping(method = RequestMethod.POST)
     @PostMapping
+    @Operation(summary = "salvar", description = "Cadastrar novo perfil")
+    @ApiResponses({
+            @ApiResponse(responseCode = "201", description = "Cadastrado com sucesso"),
+            @ApiResponse(responseCode = "999", description = "Erro não catalogado"),
+    })
     public ResponseEntity<Object> salvar(@RequestBody @Valid PerfilDTO perfilDTO) {
 //        try {
 
