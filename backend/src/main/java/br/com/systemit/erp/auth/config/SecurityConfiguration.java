@@ -63,10 +63,11 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder(10);
     }
 
-    @Bean
-    public UserDetailsService userDetailService(UsuarioService usuarioService, UsuarioAutenticacaoService usuarioAutenticacaoService) {
-       return new CustomUserDetailsService(usuarioService, usuarioAutenticacaoService);
-    }
+    // authentication
+//    @Bean
+//    public UserDetailsService userDetailService(UsuarioService usuarioService, UsuarioAutenticacaoService usuarioAutenticacaoService) {
+//       return new CustomUserDetailsService(usuarioService, usuarioAutenticacaoService);
+//    }
 
     /*para uso com bd em memoria para facilitar alguns testes
     @Bean

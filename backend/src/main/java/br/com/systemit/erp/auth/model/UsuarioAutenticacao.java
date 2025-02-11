@@ -1,11 +1,13 @@
 package br.com.systemit.erp.auth.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "usuarioautenticacao", schema = "public")
+@Data
 public class UsuarioAutenticacao {
 
     @Id
@@ -33,62 +35,5 @@ public class UsuarioAutenticacao {
     @ManyToOne
     @JoinColumn(name = "idperfil", referencedColumnName = "id")
     private Perfil perfil;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Date getDataAtivacao() {
-        return dataAtivacao;
-    }
-
-    public void setDataAtivacao(Date dataAtivacao) {
-        this.dataAtivacao = dataAtivacao;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public String getUsuarioAtivacao() {
-        return usuarioAtivacao;
-    }
-
-    public void setUsuarioAtivacao(String usuarioAtivacao) {
-        this.usuarioAtivacao = usuarioAtivacao;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Modulo getSistema() {
-        return sistema;
-    }
-
-    public void setSistema(Modulo sistema) {
-        this.sistema = sistema;
-    }
-
-    public Perfil getPerfil() {
-        return perfil;
-    }
-
-    public void setPerfil(Perfil perfil) {
-        this.perfil = perfil;
-    }
-
 
 }
