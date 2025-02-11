@@ -27,7 +27,8 @@ public class CustomAuthentication implements Authentication {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return perfis
                 .stream()
-                .map(perfil -> new SimpleGrantedAuthority("ROLE_"+perfil.getPerfil().getRole()))
+                //.map(SimpleGrantedAuthority::new)
+                .map(perfil -> new SimpleGrantedAuthority(perfil.getPerfil().getRole()))
                 .collect(Collectors.toList());
     }
 
