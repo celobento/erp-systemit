@@ -6,6 +6,7 @@ import br.com.systemit.erp.auth.service.UsuarioAutenticacaoService;
 import br.com.systemit.erp.auth.service.UsuarioService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -20,9 +21,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Resource server
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity( securedEnabled = true, jsr250Enabled = true)
@@ -50,8 +56,20 @@ public class SecurityConfiguration {
                         oauth2 -> {
                             oauth2.successHandler(sucessHandler);
                         })
+                .oauth2ResourceServer(oauth2RS -> oauth2RS.jwt(Customizer.withDefaults()))
                 .build();
     }
+
+    // configura, no token jwt, o prefixo scope
+    @Bean
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+        var authotitiesConverter = new JwtGrantedAuthoritiesConverter();
+        authotitiesConverter.setAuthorityPrefix("");
+        var converter = new JwtAuthenticationConverter();
+        converter.setJwtGrantedAuthoritiesConverter(authotitiesConverter);
+        return converter;
+    }
+
 
     @Bean
     public WebSecurityCustomizer webSecutiryCustomizer() {
@@ -69,6 +87,7 @@ public class SecurityConfiguration {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder(10);
     }
 
