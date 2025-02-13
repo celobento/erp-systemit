@@ -1,6 +1,7 @@
 package br.com.systemit.erp.auth.config;
 
 import br.com.systemit.erp.auth.security.CustomUserDetailsService;
+import br.com.systemit.erp.auth.security.JwtCustomAuthenticationFilter;
 import br.com.systemit.erp.auth.security.LoginSocialSucessHandler;
 import br.com.systemit.erp.auth.service.UsuarioAutenticacaoService;
 import br.com.systemit.erp.auth.service.UsuarioService;
@@ -23,6 +24,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -37,7 +39,8 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
-            LoginSocialSucessHandler sucessHandler
+            LoginSocialSucessHandler sucessHandler,
+            JwtCustomAuthenticationFilter jwtCustomAuthenticationFilter
     )  throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
@@ -57,6 +60,8 @@ public class SecurityConfiguration {
                             oauth2.successHandler(sucessHandler);
                         })
                 .oauth2ResourceServer(oauth2RS -> oauth2RS.jwt(Customizer.withDefaults()))
+                // adicionando para pergar dados do token no filter
+                .addFilterAfter(jwtCustomAuthenticationFilter, BearerTokenAuthenticationFilter.class)
                 .build();
     }
 
@@ -80,7 +85,8 @@ public class SecurityConfiguration {
               "/swagger-resources/**",
               "/swagger-ui.html",
               "/swagger-ui/**",
-              "/webjars/**"
+              "/webjars/**",
+              "/actuator/**"
             );
         };
     }
