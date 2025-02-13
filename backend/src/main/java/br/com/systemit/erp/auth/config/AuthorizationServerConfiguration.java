@@ -54,6 +54,8 @@ public class AuthorizationServerConfiguration {
         http
                 .securityMatcher(authorizationServerConfigurer.getEndpointsMatcher())
                 .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
+                .oauth2ResourceServer(oauth2Rs -> oauth2Rs.jwt(Customizer.withDefaults()))
+                .formLogin(configurer -> configurer.loginPage("/login"))
                 .apply(authorizationServerConfigurer);
 
         return http.build();
